@@ -3,12 +3,12 @@ import { VitePWA } from "vite-plugin-pwa";
 import react from "@vitejs/plugin-react";
 import viteCompression from "vite-plugin-compression";
 
-// https://vitejs.dev/config/
-export default ({ mode }) =>
-  defineConfig({
+export default ({ mode }) => {
+  const env = loadEnv(mode, process.cwd());
+
+  return defineConfig({
     plugins: [
       react(),
-      // PWA
       VitePWA({
         registerType: "autoUpdate",
         workbox: {
@@ -24,8 +24,7 @@ export default ({ mode }) =>
               },
             },
             {
-              urlPattern:
-                /(.*?)\.(webp|png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/,
+              urlPattern: /(.*?)\.(webp|png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/,
               handler: "CacheFirst",
               options: {
                 cacheName: "image-cache",
@@ -34,9 +33,9 @@ export default ({ mode }) =>
           ],
         },
         manifest: {
-          name: loadEnv(mode, process.cwd()).VITE_SITE_NAME,
-          short_name: loadEnv(mode, process.cwd()).VITE_SITE_NAME,
-          description: loadEnv(mode, process.cwd()).VITE_SITE_DES,
+          name: env.VITE_SITE_NAME,
+          short_name: env.VITE_SITE_NAME,
+          description: env.VITE_SITE_DES,
           display: "standalone",
           start_url: "/",
           theme_color: "#fff",
@@ -50,7 +49,6 @@ export default ({ mode }) =>
           ],
         },
       }),
-      // viteCompression
       viteCompression(),
     ],
     resolve: {
@@ -59,7 +57,11 @@ export default ({ mode }) =>
       },
     },
     server: {
-      port: 6598,
+      port: env.VITE_PORT || 6598,  // 读取环境变量中的端口
+    },
+    preview: {
+      port: env.VITE_PORT || 4173,  // 为 `vite preview` 设置端口
+      host: "0.0.0.0",  // 使其在所有网络接口上可访问
     },
     build: {
       minify: "terser",
@@ -71,3 +73,4 @@ export default ({ mode }) =>
       sourcemap: false,
     },
   });
+};
