@@ -47,8 +47,8 @@ const Footer = () => {
         {/*</div>*/}
         <div className="text" style={{textAlign: 'center'}}>
           <p>
-            <a href="https://status.kechang.uk" target="_blank" rel="noopener noreferrer">Kechang’s Status</a> | <a
-              href="https://kechang.uk" target="_blank" rel="noopener noreferrer">Kechang</a>
+            <CustomLink to="https://status.kechang.uk" text="Kechang’s Status"/> |
+            <CustomLink to="https://kechang.uk" text="Kechang"/>
           </p>
           <p>
             Using the&nbsp;
@@ -64,6 +64,7 @@ const Footer = () => {
             &nbsp;Version&nbsp;{Package.version}
           </p>
         </div>
+
       </footer>
   );
 };
