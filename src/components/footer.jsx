@@ -47,7 +47,8 @@ const Footer = () => {
         {/*</div>*/}
         <div className="text" style={{textAlign: 'center'}}>
           <p>
-            Kechang’s Status | Kechang
+            <a href="https://status.kechang.uk" target="_blank" rel="noopener noreferrer">Kechang’s Status</a> | <a
+              href="https://kechang.uk" target="_blank" rel="noopener noreferrer">Kechang</a>
           </p>
           <p>
             Using the&nbsp;
